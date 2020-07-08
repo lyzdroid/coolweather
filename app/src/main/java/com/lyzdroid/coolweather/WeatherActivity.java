@@ -5,6 +5,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.media.tv.TvView;
@@ -23,6 +24,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.lyzdroid.coolweather.gson.Forecast;
 import com.lyzdroid.coolweather.gson.Weather;
+import com.lyzdroid.coolweather.service.AutoUpdateService;
 import com.lyzdroid.coolweather.util.HttpUtil;
 import com.lyzdroid.coolweather.util.Utility;
 
@@ -204,6 +206,9 @@ public class WeatherActivity extends AppCompatActivity {
      * 处理并展示Weather实体类中的数据
      */
     private void showWeatherInfo(Weather weather) {
+        Intent intent = new Intent(this, AutoUpdateService.class);
+        startService(intent);
+
         String cityName = weather.basic.cityName;
         String updateTime = weather.basic.update.updateTime.split(" ")[1];
         String degree = weather.now.temperature + "℃";
